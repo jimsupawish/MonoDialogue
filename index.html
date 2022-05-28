@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js"></script>
+        <title>MonoDialogue</title>
+    </head>
+    <body>
+        <section>
+          <h1>MonoDialogue</h1>
+        </section>
+
+        <!--
+            Collapsible tutorial inspired from:
+            https://www.w3schools.com/howto/howto_js_collapsible.asp
+        -->
+
+        <button id="tutorial-button">Hide Tutorial</button>
+
+        <section id="intro">
+            <h2>Tutorial</h2>
+
+            <h4>About</h4>
+            <p>
+                Welcome to the MonoDialogue game. This is a one-player game where the player
+                will play two characters, Glenn and Morgan, simultaneously.
+            </p>
+
+            <h4>What you will do</h4>
+            <p>
+                The rule is simple. You will write dialogue into the textbox for one of the characters
+                at a time, and they will alternate speaking with each other. Some events might pop up as
+                messages in the story. You may choose to incorporate the events into the dialogue, or
+                ignore the events, just like in real conversations! When writing the dialogue, you can end
+                the dialogue by either clicking the button "speak", or hit "Enter" on your keyboard.
+                Click on the "Start" button if you want to play the real game (it will also hide the sample game)!
+                "Restart" button will restart the whole game.
+            </p>   
+                
+            <h4>Time</h4>
+            <p>
+                There is a clock that tells you what is the time in the game. The clock in the game will start
+                at 1:20 pm, and you have until 1:28 pm to talk to each other. The clock will start when Glenn
+                finishes "speaking" the first dialogue that you write into the textbox. When the clock hits
+                12:28 pm, each character would not be able to speak with each other anymore.
+            </p>
+
+            <h4>Character Information</h4>
+            <p>
+                The information about each character you play is at the bottom of the page. You would probably
+                have to scroll down to reach there. Other than the information listed below, feel free to
+                go in whichever direction you want!
+            </p>
+
+            <p>
+                Remark: Hitting refresh on the browser will RESTART the whole game!
+            </p>
+        </section>
+
+        <section id="sample-story">
+            <h3>Sample Story</h3>
+            <p>
+                Here is a sample part to try out the game. Note that in the real game,
+                the clock will starts at 1:20 pm. Like the real game, the clock will stop
+                at 1:28 pm. It is highly recommended that new players play this sample game
+                first to get a feel of what it is like to play the game.
+            </p>
+            <p>
+                Glenn: Hello...
+            </p>
+            <p>
+                Morgan: Can you hear me?
+            </p>
+        </section>
+
+
+        <section id="story" class="hidden">
+            <h3>The Game</h3>
+
+            <p>
+                Today is the first day of the quarter. Glenn and Morgan ended up next to
+                each other in the college's cafeteria. They never met each other before.
+            </p>
+
+            <p>
+                Glenn: Hello!
+            </p>
+
+            <p>
+                Morgan: Hi! How are you?
+            </p>
+        </section>
+
+        <section id="inputArea">
+            <p>Glenn: </p>
+            <textarea rows="3"></textarea>
+        </section>
+
+        <button id="speak">Speak</button>
+
+        <button id="info-button">Hide Character Information</button>
+
+        <section id="all-info">
+            <section id="clock">
+                <p>
+                    Clock:
+                </p>
+            </section>
+
+            <section id="all-chars">
+                <section class="character-info" id="glenn">
+                    <p>
+                        Glenn Character Information
+                    </p>
+
+                    <ul>STEM student in college</ul>
+                    <ul>Dread the first day of the quarter</ul>
+                    <ul>Taking a STEM class to fulfill degree requirement right now</ul>
+                    <ul>Email: glen409@uwu.edu</ul>
+                </section>
+
+                <section class="character-info" id="morgan">
+                    <p>
+                        Morgan Character Information
+                    </p>
+
+                    <ul>Humanities student in college</ul>
+                    <ul>Enjoying the first day of the quarter</ul>
+                    <ul>Taking a Humanities class to fulfill degree requirement right now</ul>
+                    <ul>Email: mgan55@uwu.edu</ul>
+                </section>
+            </section>
+        </section>
+
+        <button id="start">Start</button>
+    </body>
+</html>

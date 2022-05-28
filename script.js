@@ -4,21 +4,18 @@
 (function() {
   const NAMES = ["Glenn", "Morgan"];
   const TIME_LIMIT_SAMPLE = 20;
-  const TIME_LIMIT_STORY = 480;
+  const TIME_LIMIT_STORY = 600;
 
   const STORY_EVENTS = [
-    {"time-mark": 32, "text": "It was rainier at the beginning of the day, but now the sun shines brightly."},
-    {"time-mark": 65, "text": "\"SMACK!\" A bird just flew right into the window."},
-    {"time-mark": 102, "text": "It seems like this is quite a down time for restaurants in the cafeteria."},
-    {"time-mark": 145, "text": "Someone waves at Glenn and walks away. Glenn waves back."},
+    {"time-mark": 23, "text": "It was rainier at the beginning of the day, but now the sun shines brightly."},
+    {"time-mark": 76, "text": "\"SMACK!\" A bird just flew right into the window."},
+    {"time-mark": 134, "text": "Someone waves at Glenn and walks away. Glenn waves back."},
     {"time-mark": 189, "text": "The background music now play Morgan's favorite song."},
-    {"time-mark": 223, "text": "The door to the cafeteria blasted open. A group of people march through the door and walk passes Glenn and Morgan."},
-    {"time-mark": 250, "text": "Morgan's phone fell out of Morgan's pocket."},
-    {"time-mark": 289, "text": "A paper airplane flew right between Glenn and Morgan."},
-    {"time-mark": 328, "text": "Two people in the cafeteria are having a loud row."},
-    {"time-mark": 366, "text": "Glenn's phone suddenly rings up."},
-    {"time-mark": 401, "text": "Someone dropped a plate with a loud \"CLANK!\""},
-    {"time-mark": 442, "text": "Glenn would have to leave soon. Time to wrap up the conversations!"}
+    {"time-mark": 267, "text": "The door to the cafeteria blasted open. A group of people march through the door and walk passes Glenn and Morgan."},
+    {"time-mark": 323, "text": "Two people in the cafeteria are having a loud row."},
+    {"time-mark": 434, "text": "Morgan's phone suddenly rings up."},
+    {"time-mark": 493, "text": "Someone dropped a plate with a loud \"CLANK!\""},
+    {"time-mark": 546, "text": "Glenn would have to leave soon. Time to wrap up the conversations!"}
   ]
 
   const END_EVENTS = [

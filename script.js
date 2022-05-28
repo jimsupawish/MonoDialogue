@@ -5,12 +5,37 @@
   const NAMES = ["Glenn", "Morgan"];
   const TIME_LIMIT_SAMPLE = 20;
   const TIME_LIMIT_STORY = 480;
+
+  const STORY_EVENTS = [
+    {"time-mark": 32, "text": "It was rainier at the beginning of the day, but now the sun shines brightly."},
+    {"time-mark": 65, "text": "\"SMACK!\" A bird just flew right into the window."},
+    {"time-mark": 102, "text": "It seems like this is quite a down time for restaurants in the cafeteria."},
+    {"time-mark": 145, "text": "Someone waves at Glenn and walks away. Glenn waves back."},
+    {"time-mark": 189, "text": "The background music now play Morgan's favorite song."},
+    {"time-mark": 223, "text": "The door to the cafeteria blasted open. A group of people march through the door and walk passes Glenn and Morgan."},
+    {"time-mark": 250, "text": "Morgan's phone fell out of Morgan's pocket."},
+    {"time-mark": 289, "text": "A paper airplane flew right between Glenn and Morgan."},
+    {"time-mark": 328, "text": "Two people in the cafeteria are having a loud row."},
+    {"time-mark": 366, "text": "Glenn's phone suddenly rings up."},
+    {"time-mark": 401, "text": "Someone dropped a plate with a loud \"CLANK!\""},
+    {"time-mark": 442, "text": "Glenn would have to leave soon. Time to wrap up the conversations!"}
+  ]
+
+  const END_EVENTS = [
+    "The time is up. Glenn walks away from Morgan, leaving Morgan alone at the table.",
+    "If Glenn and Morgan have exchanged contacts, then they probably would be able to talk to each other again.",
+    "If not, then this might be their last encounters with each other... yet.",
+    "---",
+    "We have reached the end of the story. Read the story from the start to see how it progressed.",
+    "You may copy and paste the story somewhere to save it.",
+    "THE END"
+  ]
   let personSpeaking = 0;
   let sampleStory = true;
   let timerStartAlready = false;
   let timerId = null;
   let timeOffset = 0;
-  let storyElement = 0;
+  let storyIndex = 0;
   let timeLimit = sampleStory ? TIME_LIMIT_SAMPLE : TIME_LIMIT_STORY;
   let gameEnded = false;
   window.addEventListener("load", init);
@@ -53,7 +78,7 @@
     textInput.value = textInput.value.trim();
 
     if (textInput.value.length > 0) {
-      addParagraphToElement(story, NAMES[personSpeaking] + ": " + textInput.value, false);
+      addParagraphToElement(story, NAMES[personSpeaking] + ": " + textInput.value, false, false);
       personSpeaking = (personSpeaking + 1) % 2;
       
       let speakerPart = document.getElementById("inputArea").children[0];
@@ -81,13 +106,15 @@
     gameEnded = false;
     timeOffset = 0;
     timeLimit = sampleStory ? TIME_LIMIT_SAMPLE : TIME_LIMIT_STORY;
+    personSpeaking = 0;
     clearLeftoverTimer();
 
     enableGameInput();
     setGameClock();
 
     document.querySelector("textarea").value = "";
-    storyElement = 0;
+    storyIndex = 0;
+    document.getElementById("inputArea").children[0].innerText = "Glenn: ";
   }
 
   // Adapted timer code from:
@@ -118,7 +145,6 @@
     let timeString = "13:";
     let timeFromHourBeginning = 1200 + TIME_LIMIT_STORY - timeLimit + timeOffset;
 
-    console.log(timeFromHourBeginning);
     timeString += makeTwoDigit("" + Math.floor(timeFromHourBeginning / 60));
     timeString += ":" + makeTwoDigit("" + (timeFromHourBeginning % 60));
     
@@ -127,7 +153,18 @@
 
   function endGame() {
     gameEnded = true;
+    addTextToStory();
     disableGameInput();
+
+    if (!sampleStory) {
+      addParagraphToElement(document.getElementById("story"), END_EVENTS[0], true, false);
+
+      for (let i = 1; i < END_EVENTS.length - 1; i++) {
+        addParagraphToElement(document.getElementById("story"), END_EVENTS[i], false, false)
+      }
+
+      addParagraphToElement(document.getElementById("story"), END_EVENTS[END_EVENTS.length - 1], true, false);
+    }
   }
 
   function disableGameInput() {
@@ -142,7 +179,6 @@
 
   function makeTwoDigit(numStr) {
     if (numStr.length < 2) {
-      console.log("0" + numStr);
       return "0" + numStr;
     } else {
       return numStr;
@@ -150,8 +186,6 @@
   }
 
   function clearLeftoverTimer() {
-    console.log("timerId = " + timerId);
-
     if (timerId) {
       clearInterval(timerId);
       timerId = null;
@@ -163,27 +197,30 @@
       "And then, a bird swooped down."
     ]
     let story = sampleStory ? document.getElementById("sample-story") : document.getElementById("story");
-    if (storyElement == 0 && timeOffset > 9) {
-      addParagraphToElement(story, sampleEventsList[storyElement], true);
-      storyElement++;
+    if (storyIndex == 0 && timeOffset > 9) {
+      addParagraphToElement(story, sampleEventsList[storyIndex], true, true);
+      storyIndex++;
     }
   }
 
   function storyEvents() {
-
+    if (storyIndex < STORY_EVENTS.length && STORY_EVENTS[storyIndex]["time-mark"] == timeOffset) {
+      addParagraphToElement(story, STORY_EVENTS[storyIndex]["text"], true, true);
+      storyIndex++;
+    }
   }
 
-  function addParagraphToElement(element, text, enclosedInLineBreak) {
+  function addParagraphToElement(element, text, startWithLineBreak, endWithLineBreak) {
     let paragraph = document.createElement("p");
     paragraph.innerText = text;
 
-    if (enclosedInLineBreak) {
+    if (startWithLineBreak) {
       element.appendChild(document.createElement("br"))
     }
 
     element.appendChild(paragraph);
   
-    if (enclosedInLineBreak) {
+    if (endWithLineBreak) {
       element.appendChild(document.createElement("br"))
     }
   }
